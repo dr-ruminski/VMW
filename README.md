@@ -1,2 +1,2 @@
-# vmw
-Virbo Motors Wearable
+# VMW
+**V**irbo **M**otors **W**earable
