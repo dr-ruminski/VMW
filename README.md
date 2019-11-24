@@ -1,8 +1,7 @@
 # VMW
-**V**irbo **M**otors **W**earable test
-
+**V**irbo **M**otors **W**earable is an open-source device for enhancing Mixed Reality applications with tactile human-machine hand interactions. 
 In this demo, we demonstrate the use of the mobile Vibro Motors Wearable device, and we explain how it can be used to 
-enhance Mixed Reality applications with tactile human-machine hand interactions.
+
 The presented device is capable of providing tactile feedback while interacting with virtual objects, e.g., when elements of a
 3D user interface are touched. The device enables to run vibro motors mounted on a user's fingers while interacting with synthetic objects.
 In order to control the vibe of a particular vibro motor in a wireless manner, we have developed an HTTP-based API. 
