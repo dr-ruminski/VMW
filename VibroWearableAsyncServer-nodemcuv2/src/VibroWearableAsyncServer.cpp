@@ -12,9 +12,6 @@
 #include <ESPAsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 
-AsyncWebServer server(80);
-
-
 
 #define D0 16
 #define D1 5 // I2C Bus SCL (clock)
@@ -29,22 +26,15 @@ AsyncWebServer server(80);
 #define D10 1 // TX0 (Serial console)
 
 
- //const char* ssid = "AndroidAP";  // 192.168.43.78
- //const char* password = "12345678";
-
-const char* ssid = "UE-KTI"; // KTI
-const char* password = "kti4usonly";
-
-//const char* ssid = "WLAN-619281"; // 172.16.88.192
-//const char* password = "8608806669887719";
-
-//const char* ssid = "WNAVAB"; // 192.168.0.118
-//const char* password = "campradio4u";
+const char* ssid = "ssid"; 
+const char* password = "yourpasswordToAP";
 
 
-
-
+// led for esp
 const int led = D4;
+
+// async web server listening on 80
+AsyncWebServer server(80);
 
 // pin given by a user via GET method
 int pin = D0;
@@ -93,10 +83,7 @@ void setupWifi() {
   }
 
 
-
-
 void setup(void){
-
 
  //oldWiFiStuff(); 
   setupWifi();
@@ -161,56 +148,7 @@ uint32_t memlast = 0;
 uint32_t counter = 0;
 
 
-/*
-boolean validateParams() {
-
-  if (server.args() == 2) {
-    pin = server.arg(0).toInt();
-    voltage = server.arg(1).toInt();
-    
-
-  
-  //  if (!isFloat(pin) && !isFloat(voltage)) {
-  //    server.send(400, "text/plain", "The parameters are not numeric!");
-  //    return false;
-  //  }
-   
-   String test = "Coin motor ON! D" +pin;
-   test += ", voltage="+voltage;
-    server.send(200, TEXT_PLAIN, "");//"Coin motor ON! D"+pin+", voltage="+voltage);
-    return true;
-    
-  } else if (server.args() > 2) {
-    server.send(400, TEXT_PLAIN, INFO2);
-
-    return false;
-
-  } else {
-    server.send(400, TEXT_PLAIN, INFO3);
-
-    return false;
-  }
-
-  
-}
-*/
-
-
-
-
 void startServer() {
-
-/*
-  server.on("/", HTTP_OPTIONS, []() {
-      server.sendHeader("Access-Control-Allow-Origin", "*");
-      server.sendHeader("Access-Control-Max-Age", "10000");
-      server.sendHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
-      server.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-      server.send(200, "text/plain", "" );
-    });
-*/    
-
-  
 
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
       //digitalWrite(led, 0);
@@ -228,10 +166,7 @@ void startServer() {
     //memlast = memcurr;
 
 
-
-    //if (!validateParams())
-    //  return;
-
+	// handling parameters
     String pinStr = request->getParam(PARAM_PIN)->value();
     String volStr = request->getParam(PARAM_VOLTAGE)->value();
 
@@ -241,47 +176,20 @@ void startServer() {
     //Serial.printf("Pin: %d; Voltage: %d\t", pin, voltage);
     
 
-  /*
-    if (!isFloat(pin) && !isFloat(voltage)) {
-      server.send(400, "text/plain", "The parameters are not numeric!");
-      return false;
-    }
-   */ 
-
-    
-      
+	// here we start a fun       
     runCoinMotor(pin, voltage);
-    
-    //String msg = " pin="+server.arg(0);
-    //msg += "\tvoltage="+server.arg(1);
-    //msg += "\tfreemem="+freeMem;
-    //msg += "\tcounter=" +counter;
     request->send(200, TEXT_PLAIN, OK_);
-
-    
     counter++;
 
-    
-    //else {
-//Access-Control-Allow-Credentials: true
-//      server.sendHeader("Access-Control-Allow-Credentials", true);
-      //server.send(200, "pin or powed not defined");
-      //runCoinMotor();
-    //}
-  });
+	// setting headers CORS 
+	DefaultHeaders::Instance().addHeader(ACCESS_CONTROL_ALLOW_ORIGIN, ASTERIX);
+	DefaultHeaders::Instance().addHeader(ACCESS_CONTROL_ALLOW_METHODS, METHODS);
+	DefaultHeaders::Instance().addHeader(ACCESS_CONTROL_ALLOW_HEADERS, HEADERS);
 
 
-  //DefaultHeaders::Instance().addHeader("Access-Control-Allow-Origin", "*");
-
-  DefaultHeaders::Instance().addHeader(ACCESS_CONTROL_ALLOW_ORIGIN, ASTERIX);
-  DefaultHeaders::Instance().addHeader(ACCESS_CONTROL_ALLOW_METHODS, METHODS);
-  DefaultHeaders::Instance().addHeader(ACCESS_CONTROL_ALLOW_HEADERS, HEADERS);
-
-
-
-  server.begin();
-  //server.setNoDelay(true);
-  Serial.println("HTTP server started");
+	server.begin();
+	//server.setNoDelay(true);
+	Serial.println("async HTTP server started");
 
   
 }

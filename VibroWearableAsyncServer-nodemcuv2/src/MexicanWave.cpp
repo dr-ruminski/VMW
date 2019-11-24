@@ -1,4 +1,9 @@
+/**
+	Mexican wave effect - feature.
+	
+	@author Dariusz Rumiński
 
+*/
 #include "MexicanWave.h"
 #include <Arduino.h>
 
@@ -12,17 +17,12 @@ MexicanWave::MexicanWave(unsigned char* pp) {
   
 }
 
-
 // starts a mexican wave for fingers
 void MexicanWave::start() {
-
-
   int x = 0;
-
   
   // 1024 means 3.3V for ESP
   for (int v = 0; v < 1024; v++) {
-
       
       // assume that a pointer points into 5 elements (fingers) array of pins
       for (int i = 0; i < 5; i++) {
@@ -39,7 +39,7 @@ void MexicanWave::start() {
       }
   }
 
-/*
+
   // now backwards
   for (int v = 1024; v > 0; v--) {
 
@@ -54,20 +54,15 @@ void MexicanWave::start() {
         }
         
         delay(3);
-        
       }    
-    
   }
-  */
-
-  
 }
 
 /*        
-      if (powerVar == 0) {
-        analogWrite(pin, LOW);  
-      } else {
-        analogWrite(pin, powerVar);
-      }
+  if (powerVar == 0) {
+    analogWrite(pin, LOW);  
+  } else {
+    analogWrite(pin, powerVar);
+  }
 */    
 
