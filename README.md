@@ -1,7 +1,7 @@
 # VMW
 **V**irbo **M**otors **W**earable test
 
-
+```
 @inproceedings{ruminski2018augmenting,
   title={Augmenting Mixed Reality Applications with the Vibro Motors Wearable},
   author={Rumi{\'n}ski, Dariusz and Klinker, Gudrun},
@@ -10,4 +10,4 @@
   year={2018},
   organization={IEEE}
 }
-
+```
