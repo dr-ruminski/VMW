@@ -8,7 +8,7 @@ In order to control the vibe of a particular vibro motor in a wireless manner, w
 The API can be used to develop mobile-tactile Mixed Reality applications to enhance user experience by giving an impression of fading in/out effects when interacting with 3D objects. 
 To show the device's capabilities, a 3D demo application has been developed in which a user can experience tactile feedback effects while interacting with a virtual object. 
 
-
+https://github.com/dr-ruminski/VMW/tree/master/Publication/Figures
 
 If you find the project interesting, I'd be grateful for citing VMW: 
 ```
