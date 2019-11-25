@@ -10,7 +10,7 @@ To show the device's capabilities, a 3D demo application has been developed in w
 
 
 
-If you find the projet interesting, I'd be grateful for citing VMW, e.g. using bibtex: 
+If you find the project interesting, I'd be grateful for citing VMW: 
 ```
 @inproceedings{ruminski2018VMW,
   title={Augmenting Mixed Reality Applications with the Vibro Motors Wearable},
