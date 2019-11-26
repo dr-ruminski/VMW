@@ -13,7 +13,20 @@ The VMW device consists of five vibro motors connected to the device’s board, 
 </figure> 
 
 The device is lightweight and easy-to-wear on a hand. It does not limit the user’s hand movements. It is supplied with a small, rechargeable LI-ION battery. Alternatively, it can be connected to the 3.3V power supply with wires.
-In order to control the vibe of a particular vibro motor in a wireless manner, we have developed a simple-to-use HTTP-based API. For instance, to run a vibro motor with 3.3V mounted on an index finger, an AR or VR application should call HTTP GET method with the following pattern:
+In order to control the vibe of a particular vibro motor in a wireless manner, we have developed a simple-to-use HTTP-based API. 
+
+## Software
+### Server-side
+The source code of asynchronous server can be found [VibroWearableAsyncServer-esp8266](VibroWearableAsyncServer-esp8266). The project has been created with the use of Visual Studio. 
+First of all, change the SSID and password of *VibroWearableAsyncServer.cpp* to the proper access point (AP). With the use of this AP VMW will connect and be accessible by a client app in a wireless manner. 
+```
+const char* ssid = "ssid"; 
+const char* password = "yourpasswordToAP";
+```
+
+Compile the code and upload to any instance of ESP 8266. You can also use node mcu. In logs you will find a given IP address that will be used by the client application.
+
+Next, in order to run a vibro motor with e.g. 3.3V mounted on an index finger, an AR or VR application should call HTTP GET method with the following pattern:
 ```
 http://device-ip-address/motor?finger=index&voltage=3.3
 ```
@@ -21,8 +34,7 @@ where:
 * *device-ip-address* – is an IP address of a Vibro Motors Wearable device;
 * *finger* – is a parameter that expresses which vibro motor should be run;
 * *voltage* is a parameter that indicates which voltage should be supplied from the range [0, 3.3].
-
-## Software
+### 
 
 ## Publication
 If you find the project interesting, I'd be grateful for citing VMW: 
