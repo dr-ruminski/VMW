@@ -6,14 +6,12 @@ The API can be used to develop mobile-tactile Mixed Reality applications to enha
 
 
 ## Hardware
-The VMW device consists of five vibro motors connected to the device’s board, each mounted on a user’s fingers (Fig. 1A). An ESP8266 microcontroller serves as an asynchronous server providing an HTTP-based API for controlling voltage of each sensor (Fig. 1B). Furthermore, a lithium-ion battery supplies voltage to the device (Fig. 1C). Finally, a regulating velcro strip is used with the mounted ESP8266 board in order to make it easy to put the device on the user’s hand (Fig. 1D).
+The VMW device consists of five vibro motors connected to the device’s board, each mounted on a user’s fingers (Fig. 1A). An ESP8266 microcontroller serves as an asynchronous server providing an HTTP-based API for controlling voltage of each sensor (Fig. 1B). Furthermore, a lithium-ion battery supplies voltage to the device (Fig. 1C). Finally, a regulating velcro strip is used with the mounted ESP8266 board in order to make it easy to put the device on the user’s hand (Fig. 1D). The device is lightweight and easy-to-wear on a hand. It does not limit the user’s hand movements. It is supplied with a small, rechargeable LI-ION battery. Alternatively, it can be connected to the 3.3V power supply.
 <figure>
   <img height="300" src="/Publication/Figures/device_blue.png?raw=true">
   <figcaption>Fig.1 - Vibro Motors Wearable.</figcaption>
 </figure> 
 
-The device is lightweight and easy-to-wear on a hand. It does not limit the user’s hand movements. It is supplied with a small, rechargeable LI-ION battery. Alternatively, it can be connected to the 3.3V power supply with wires.
-In order to control the vibe of a particular vibro motor in a wireless manner, we have developed a simple-to-use HTTP-based API. 
 
 ## Software
 ### Server-side
