@@ -7,15 +7,15 @@ The API can be used to develop mobile-tactile Mixed Reality applications to enha
 
 ## Hardware
 The VMW device consists of five vibro motors connected to the device’s board, each mounted on a user’s fingers (Fig. 1A). An ESP8266 microcontroller serves as an asynchronous server providing an HTTP-based API for controlling voltage of each sensor (Fig. 1B). Furthermore, a lithium-ion battery supplies voltage to the device (Fig. 1C). Finally, a regulating velcro strip is used with the mounted ESP8266 board in order to make it easy to put the device on the user’s hand (Fig. 1D). The device is lightweight and easy-to-wear on a hand. It does not limit the user’s hand movements. It is supplied with a small, rechargeable LI-ION battery. Alternatively, it can be connected to the 3.3V power supply.
-<figure>
-  <img height="300" src="/Publication/Figures/device_blue.png?raw=true">
-  <figcaption>Fig.1 - Vibro Motors Wearable.</figcaption>
-</figure> 
+<p align="center">
+    <img height="300" src="/Publication/Figures/device_blue.png?raw=true">
+    <br>Fig.1 - Vibro Motors Wearable.
+</p>  
 
 
 ## Software
 ### Server-side
-The source code of asynchronous server can be found [VibroWearableAsyncServer-esp8266](VibroWearableAsyncServer-esp8266). The project has been created with the use of Visual Studio. 
+The source code of asynchronous server can be found within the following catalog: [VibroWearableAsyncServer-esp8266](VibroWearableAsyncServer-esp8266). The project has been created with the use of Visual Studio. 
 First of all, change the SSID and password of *VibroWearableAsyncServer.cpp* to the proper access point (AP). With the use of this AP VMW will connect and be accessible by a client app in a wireless manner. 
 ```
 const char* ssid = "ssid"; 
@@ -32,7 +32,16 @@ where:
 * *device-ip-address* – is an IP address of a Vibro Motors Wearable device;
 * *finger* – is a parameter that expresses which vibro motor should be run;
 * *voltage* is a parameter that indicates which voltage should be supplied from the range [0, 3.3].
-### 
+### Client-side
+<p align="center">
+  <table style="width:100%">
+    <tr>
+      <td><img height="300" src="/Publication/Figures/index_finger.jpg?raw=true"></td>
+      <td><img height="300" src="/Publication/Figures/4fingers.jpg?raw=true"></td> 
+    </tr>
+  </table>
+</p>
+
 
 ## Publication
 If you find the project interesting, I'd be grateful for citing VMW: 
@@ -52,3 +61,5 @@ The above-listed publication can be found [here](Publication/VMW-ISMAR18-Munich.
   <img height="300" src="/Publication/Figures/me_at_ismar.jpg?raw=true">
   <figcaption>Fig.3 - Me presenting at ISMAR 18.</figcaption>
 </figure> 
+
+## Appendix
