@@ -34,4 +34,4 @@ If you find the project interesting, I'd be grateful for citing VMW:
   organization={IEEE}
 }
 ```
-The above-listed publication you can find [here](Publication/VMW-ISMAR18-Munich.pdf).
+The above-listed publication can be found [here](Publication/VMW-ISMAR18-Munich.pdf). VMW was presented at the International Symposium on Mixed and Augmented Reality ([ISMAR'18](https://www.ismar2018.org/)) conference in Munich. 
