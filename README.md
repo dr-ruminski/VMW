@@ -6,7 +6,8 @@ The API can be used to develop mobile-tactile Mixed Reality applications to enha
 <figure>
   <img height="300" src="/Publication/Figures/device_blue.png?raw=true">
   <figcaption>Fig.1 - Vibro Motors Wearable.</figcaption>
-</figure>
+</figure> 
+
 
 The VMW device consists of five vibro motors connected to the device’s board, each mounted on a user’s fingers (Fig. 1A). An ESP8266 microcontroller serves as an asynchronous server providing an HTTP-based API for controlling voltage of each sensor (Fig. 1B). Furthermore, a lithium-ion battery supplies voltage to the device (Fig. 1C). Finally, a regulating velcro strip is used with the mounted ESP8266 board in order to make it easy to put the device on the user’s hand (Fig. 1D).
 
@@ -21,7 +22,7 @@ where:
 * *finger* – is a parameter that expresses which vibro motor should be run;
 * *voltage* is a parameter that indicates which voltage should be supplied from the range [0, 3.3].
 
-
+## Publication
 If you find the project interesting, I'd be grateful for citing VMW: 
 ```
 @inproceedings{ruminski2018VMW,
@@ -33,3 +34,4 @@ If you find the project interesting, I'd be grateful for citing VMW:
   organization={IEEE}
 }
 ```
+The above-listed publication you can find [here](Publication/VMW-ISMAR18-Munich.pdf).
