@@ -69,7 +69,7 @@ The above-listed publication can be found [here](Publication/VMW-ISMAR18-Munich.
 
 
 ## Appendix
-VMW was designed and developed while I was performing a 3-month research internship at the Technical University of Munich (Germany) in 2018 under Professor Gudrun Klinker's supervision. It was an honor for me to research VMW and have fruitful discussions with Professor Klinker. I'll always remember the time spent in Garching. Anyway, hard time work paid off very well - made new friendships, gained research experience,  but not only. Last weekend of September I spent in the Alps. The very ultimate goal was to get to Zugspitze - the highest peak of the Wetterstein Mountains as well as the highest mountain in Germany (2.962 m above sea level). Here are a few pictures presented while I was exploring the mountains. Enjoy!
+VMW was designed and developed while I was performing a 3-month research internship at the Technical University of Munich (Germany) in 2018 under Professor Gudrun Klinker's supervision. It was an honor to me to work with Professor Klinker. I'll always remember the time spent in Garching. Anyway, hard time work paid off very well - made new friendships, gained research experience,  but not only. Last weekend of September I spent in the Alps. The ultimate goal of my journey was to get to Zugspitze - the highest peak of the Wetterstein Mountains as well as the highest mountain in Germany (2.962 m above sea level). Here are a few pictures presented while I was exploring the mountains. Enjoy!
 
 <p align="center">
   <table style="width:100%" border="0">
