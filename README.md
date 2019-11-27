@@ -22,7 +22,7 @@ const char* ssid = "ssid";
 const char* password = "yourpasswordToAP";
 ```
 
-Compile the code and upload to any instance of ESP 8266. You can also use node mcu. In logs you will find a given IP address that will be used by the client application.
+Compile the code and upload to any instance of ESP 8266. You can also use node mcu. In logs you will find a given IP address that will be used by a client application.
 
 Next, in order to run a vibro motor with e.g. 3.3V mounted on an index finger, an AR or VR application should call HTTP GET method with the following pattern:
 ```
