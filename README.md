@@ -6,7 +6,7 @@ The API can be used to develop mobile-tactile Mixed Reality applications to enha
 
 
 ## Hardware
-The VMW device consists of five vibro motors connected to the device’s board, each mounted on a user’s fingers (Fig. 1A). An ESP8266 microcontroller serves as an asynchronous server providing an HTTP-based API for controlling voltage of each sensor (Fig. 1B). Furthermore, a lithium-ion battery supplies voltage to the device (Fig. 1C). Finally, a regulating velcro strip is used with the mounted ESP8266 board in order to make it easy to put the device on the user’s hand (Fig. 1D). The device is lightweight and easy-to-wear on a hand. It does not limit the user’s hand movements. It is supplied with a small, rechargeable LI-ION battery. Alternatively, it can be connected to the 3.3V power supply.
+The VMW device consists of five vibro motors connected to the device’s board, each mounted on a user’s fingers (Fig. 1A). An ESP8266 microcontroller serves as an asynchronous server providing an HTTP-based API for controlling voltage of each sensor (Fig. 1B). Furthermore, a lithium-ion battery supplies voltage to the device (Fig. 1C). Finally, a regulating velcro strip is used with the mounted ESP8266 board in order to make it easy to put the device on the user’s hand (Fig. 1D). The device is lightweight and easy-to-wear on a hand. It does not limit the user’s hand movements. It is supplied with a small, rechargeable LI-ION battery. Alternatively, it can be connected to the 3.3V power supply. To track a hand and motions of fingers, a Leap Motion device has been used.
 <p align="center">
     <img height="250" src="/Publication/Figures/device_blue.png?raw=true">
     <br>Fig.1 - Vibro Motors Wearable.
@@ -32,7 +32,12 @@ where:
 * *device-ip-address* – is an IP address of a Vibro Motors Wearable device;
 * *finger* – is a parameter that expresses which vibro motor should be run;
 * *voltage* is a parameter that indicates which voltage should be supplied from the range [0, 3.3].
+
 ### Client-side
+To show the device's capabilities, a [demo](/Demos/Demo2-touchingPlane.html) application has been developed in which a user can experience tactile feedback while interacting with virtual objects.  The application tracks position of a hand and fingers in 3D space which consists of two virtual objects. When a particular finger intersects on of the virtual objects, the application sends an asynchronous HTTP GET request to run a vibro motor (Fig. 2a). The further the boundary of a virtual object is penetrated, the more requests are dynamically sent to increase the voltage of a particular vibro motor giving the user an impression of the 'fade in' effect (Fig. 2b).  Vice versa, when the user moves their hand back, the device decreases the voltage giving the user an impression of a 'fade out' effect.
+
+The presented application also allows moving virtual objects in a 3D space. This function gives a user possibility to test that implemented tactile feedback is not fixed, but is dependent on the position of virtual objects.
+ 
 <p align="center">
   <table style="width:100%">
     <tr>
@@ -41,7 +46,6 @@ where:
     </tr>
   </table>
   <br>Fig.2 - Interacting with a virtual object. In Figure (a) the user experiences tactile feedback only on the index finger while Figure (b) presents tactile feedback differentiating for each finger.
-
 </p>
 
 
