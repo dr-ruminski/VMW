@@ -8,7 +8,7 @@ The API can be used to develop mobile-tactile Mixed Reality applications to enha
 ## Hardware
 The VMW device consists of five vibro motors connected to the device’s board, each mounted on a user’s fingers (Fig. 1A). An ESP8266 microcontroller serves as an asynchronous server providing an HTTP-based API for controlling voltage of each sensor (Fig. 1B). Furthermore, a lithium-ion battery supplies voltage to the device (Fig. 1C). Finally, a regulating velcro strip is used with the mounted ESP8266 board in order to make it easy to put the device on the user’s hand (Fig. 1D). The device is lightweight and easy-to-wear on a hand. It does not limit the user’s hand movements. It is supplied with a small, rechargeable LI-ION battery. Alternatively, it can be connected to the 3.3V power supply.
 <p align="center">
-    <img height="300" src="/Publication/Figures/device_blue.png?raw=true">
+    <img height="250" src="/Publication/Figures/device_blue.png?raw=true">
     <br>Fig.1 - Vibro Motors Wearable.
 </p>  
 
@@ -36,10 +36,12 @@ where:
 <p align="center">
   <table style="width:100%">
     <tr>
-      <td><img height="300" src="/Publication/Figures/index_finger.jpg?raw=true"></td>
-      <td><img height="300" src="/Publication/Figures/4fingers.jpg?raw=true"></td> 
+      <td><img height="250" src="/Publication/Figures/index_finger.jpg?raw=true"></td>
+      <td><img height="250" src="/Publication/Figures/4fingers.jpg?raw=true"></td> 
     </tr>
   </table>
+  <br>Fig.2 - Interacting with a virtual object. In Figure (a) the user experiences tactile feedback only on the index finger while Figure (b) presents tactile feedback differentiating for each finger.
+
 </p>
 
 
@@ -56,11 +58,35 @@ If you find the project interesting, I'd be grateful for citing VMW:
 }
 ```
 The above-listed publication can be found [here](Publication/VMW-ISMAR18-Munich.pdf). VMW was presented at the International Symposium on Mixed and Augmented Reality ([ISMAR'18](https://www.ismar2018.org/)) conference in Munich. 
+<p align="center">
+    <img height="250" src="/Publication/Figures/me_at_ismar.jpg?raw=true">
+    <br>Fig.3 - Me presenting VMW at ISMAR 18.
+</p>  
 
-<figure>
-  <img height="300" src="/Publication/Figures/me_at_ismar.jpg?raw=true">
-  <figcaption>Fig.3 - Me presenting at ISMAR 18.</figcaption>
-</figure> 
 
 ## Appendix
 VMW was designed and developed while I was performing a 3-month research internship at the Technical University of Munich (Germany) in 2018 under Professor Gudrun Klinker's supervision. It was an honor for me to research VMW and have fruitful discussions with Professor Klinker. I'll always remember the time spent in Garching. Anyway, hard time work paid off very well - made new friendships, gained research experience,  but not only. Last weekend of September I spent in the Alps. The very ultimate goal was to get to Zugspitze - the highest peak of the Wetterstein Mountains as well as the highest mountain in Germany (2.962 m above sea level). Here are a few pictures presented while I was exploring the mountains. Enjoy!
+
+<p align="center">
+  <table style="width:100%" border="0">
+    <tr>
+      <td align="center"><img height="250" src="/Publication/Figures/appendix/01_Zugspitze2.jpg?raw=true"></td>
+      <td align="center"><img height="250" src="/Publication/Figures/appendix/02_startingPoint.jpg?raw=true"></td> 
+    </tr>
+    <tr>
+      <td align="center"><img height="250" src="/Publication/Figures/appendix/03_moon_and_breakfast2.jpg?raw=true"></td>
+      <td align="center"><img height="250" src="/Publication/Figures/appendix/04_Alps2.jpg?raw=true"></td>
+    </tr>
+    <tr>
+      <td align="center"><img height="250" src="/Publication/Figures/appendix/05_letsGo.jpg?raw=true"></td>
+      <td align="center"><img height="250" src="/Publication/Figures/appendix/06peak.jpg?raw=true"></td>
+    </tr>
+    <tr>
+      <td align="center"><img height="250" src="/Publication/Figures/appendix/07_meAtpeak2.jpg?raw=true"></td>        
+      <td align="center"><img height="250" src="/Publication/Figures/appendix/08_window.jpg?raw=true"></td>
+    </tr>
+    <tr>  
+      <td align="center"><img height="250" src="/Publication/Figures/appendix/09_bye.jpg?raw=true"></td>
+    </tr>            
+  </table>
+</p>
