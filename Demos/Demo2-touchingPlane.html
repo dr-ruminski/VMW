@@ -1,0 +1,131 @@
+<html>
+<head>
+
+  <script src="libjs/three.js"></script>
+  <script src="libjs/leap-0.6.4.js"></script>
+  <script src="libjs/leap-plugins-0.1.11pre.js"></script>
+
+  <script src="libjs/leap-widgets-0.1.0.js"></script>
+
+  <script src="libjs/OrbitControls.js"></script>
+  <style>
+    body {
+      margin: 0;
+    }
+
+
+  </style>
+
+</head>
+<body>
+
+</br>
+Vibro Motors Wearable host: 
+<input type="text" id="inputHost">
+<input  onclick="setHost()" type="submit"  value="Set">
+
+<p id="wearableStatus"></p>
+
+
+
+</body>
+
+<script>
+
+
+  var wearableHost = "http://192.168.43.247/";
+  document.getElementById("inputHost").value = wearableHost;
+  setInterval(checkConnectivityWithWearable, 3000);
+
+
+  
+  function setHost() {
+    this.wearableHost = document.getElementById("inputHost").value;
+    console.log(wearableHost);
+  }
+
+  function checkConnectivityWithWearable() {
+    
+      var wearableStatus = document.getElementById("wearableStatus");
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.timeout = 800;
+      xmlHttp.onreadystatechange = function() { 
+          if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            console.log(xmlHttp.responseText);
+            wearableStatus.innerHTML = "CONNECTED";
+            wearableStatus.style.color = " #00ff00";
+          } else if (xmlHttp.readyState == 1) {
+            // do nothing 1: server connection established
+
+          } else {
+            console.log(xmlHttp.responseText);
+            wearableStatus.style.color = "red";
+
+            wearableStatus.innerHTML = "DISCONNECTED </br>todo:</br>1) check whether the app and device are in the same net;</br>2) check the battery;</br>3) check wires";
+          }
+      }
+      xmlHttp.open("GET", wearableHost, true); // true for asynchronous 
+      xmlHttp.send();
+    
+  }
+
+
+
+  // Set up plugins
+
+  Leap.loop({background: false}, {optimizeHMD: true})
+    .use('transform', {
+      vr: 'desktop' // Switch to meters.
+    })
+    .use('boneHand', {
+      targetEl: document.body,
+      jointColor: new THREE.Color(0x330000),
+      rendererOps: {antialias: true}
+    })
+    .use('proximity');
+
+
+  // Set up scene
+
+  var scene = Leap.loopController.plugins.boneHand.scene;
+  var camera = Leap.loopController.plugins.boneHand.camera;
+  var renderer = Leap.loopController.plugins.boneHand.renderer;
+  camera.position.set( 0.06, 1, 0.6);
+  camera.scale.set(1.5,1.5,1.5);
+
+  var controls = new THREE.OrbitControls( camera, renderer.domElement );
+
+  var axisHelper = new THREE.AxisHelper( 0.15 );
+  scene.add( axisHelper );
+
+
+  var planeGeo = new THREE.PlaneGeometry(0.15, 0.15);
+  var material = new THREE.MeshPhongMaterial({side: THREE.DoubleSide});
+  var planeMesh = new THREE.Mesh(planeGeo, material);
+  planeMesh.position.setX(0.05);
+  planeMesh.position.setY(0.1);
+  planeMesh.name = "planeMesh";
+
+  longThrow = 0.08;
+  var base = new THREE.Mesh(new THREE.BoxGeometry(longThrow, longThrow, longThrow), new THREE.MeshPhongMaterial({color: 0x222222}));
+//  base.position.set(0.05, -0.05, -0.1);
+  base.position.set(0.05, 0.26, -0.1);
+  base.rotateY(Math.PI / 45);
+
+  planeMesh.position.set(
+    0,
+    planeMesh.geometry.parameters.height / 2 - longThrow / 2,
+    longThrow / 2 + 0.0002
+  );
+  base.add(planeMesh);
+
+  scene.add(base);
+
+  var plane = new InteractablePlane(planeMesh, Leap.loopController);
+
+
+
+  
+</script>
+
+</html>

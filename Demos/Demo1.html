@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<!--
+/------------------------------------------------------------------------------\
+| Copyright (C) 2012-2013 Leap Motion, Inc. All rights reserved.               |
+| Leap Motion proprietary and confidential. Not for distribution.              |
+| Use subject to the terms of the Leap Motion SDK Agreement available at       |
+| https://developer.leapmotion.com/sdk_agreement, or another agreement         |
+| between Leap Motion and you, your company or other organization.             |
+\------------------------------------------------------------------------------/
+-->
+
+<!--
+
+See additional libraries, guides, and examples at:
+
+ - https://developer.leapmotion.com/downloads/javascript
+ - https://developer.leapmotion.com/getting-started/javascript
+ - https://developer.leapmotion.com/gallery/tags/javascript
+
+-->
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>AR Glove test - touch points</title>
+<script src="libjs/leap-0.6.3.min.js"></script>
+<script src="libjs/5.0.6/kinetic.min.js"></script>
+
+
+</head>
+<body>
+	<h1>AR Glove test - touch points</h1>
+
+    
+    <style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:10px;padding:8px 3px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;width:180px}
+.tg th{font-family:Arial, sans-serif;font-size:12px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <td class="tg-031e">p[0] = <span id="p0">…</span></td>
+    <td class="tg-yw4l">p[1] = <span id="p1">…</span></td>
+    <td class="tg-yw4l">p[2] = <span id="p2">…</span></td>
+    <td class="tg-yw4l">p[3] = <span id="p3">…</span></td>
+    <td class="tg-yw4l">p[4] = <span id="p4">…</span></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">v[0] = <span id="v0">…</span></td>
+    <td class="tg-yw4l">v[1] = <span id="v1">…</span></td>
+    <td class="tg-yw4l">v[2] = <span id="v2">…</span></td>
+    <td class="tg-yw4l">v[3] = <span id="v3">…</span></td>
+    <td class="tg-yw4l">v[4] = <span id="v4">…</span></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">lv[0] = <span id="lv0">…</span></td>
+    <td class="tg-yw4l">lv[1] = <span id="lv1">…</span></td>
+    <td class="tg-yw4l">lv[2] = <span id="lv2">…</span></td>
+    <td class="tg-yw4l">lv[3] = <span id="lv3">…</span></td>
+    <td class="tg-yw4l">lv[4] = <span id="lv4">…</span></td>
+  </tr>  
+  <tr>
+    <td class="tg-yw4l">voltage[0] = <span id="vol0">…</span></td>
+    <td class="tg-yw4l">voltage[1] = <span id="vol1">…</span></td>
+    <td class="tg-yw4l">voltage[2] = <span id="vol2">…</span></td>
+    <td class="tg-yw4l">voltage[3] = <span id="vol3">…</span></td>
+    <td class="tg-yw4l">voltage[4] = <span id="vol4">…</span></td>
+  </tr>
+</table>
+    
+    
+
+	<div id="stage"
+		style="background-color: rgb(255, 255, 255); width: 800px; height: 800"></div>
+
+	<script>
+	
+		 var arGlovesUrl = "http://192.168.43.247/motor"; // raw esp8266 android
+		// var arGlovesUrl = "http://192.168.43.247/motor"; // Node Mcu android
+		// var arGlovesUrl = "http://192.168.0.118/motor"; // NODE MCU navab
+		// var arGlovesUrl = "http://192.168.0.104/motor"; // raw esp8266 navab
+		
+
+		
+		var lastVoltage = 0;
+	
+		var pointables = [
+		                  document.getElementById("p0"),
+		                  document.getElementById("p1"),
+		                  document.getElementById("p2"),
+		                  document.getElementById("p3"),
+		                  document.getElementById("p4") ];
+		
+		var rearVs = [
+	                  document.getElementById("v0"),
+	                  document.getElementById("v1"),
+	                  document.getElementById("v2"),
+	                  document.getElementById("v3"),
+	                  document.getElementById("v4") ];
+		var lastVs = [
+	                  document.getElementById("lv0"),
+	                  document.getElementById("lv1"),
+	                  document.getElementById("lv2"),
+	                  document.getElementById("lv3"),
+	                  document.getElementById("lv4") ];		
+		
+		var volts = [
+		                  document.getElementById("vol0"),
+		                  document.getElementById("vol1"),
+		                  document.getElementById("vol2"),
+		                  document.getElementById("vol3"),
+		                  document.getElementById("vol4") ];
+		
+		var lastVolts = [0,0,0,0,0];
+		
+		var pointZero = document.getElementById("p0");
+		var logZero = document.getElementById("log0");
+
+
+		var stageWidth = 800;
+		var stageHeight = 500;
+
+		var tips = new Array(10);
+
+		var stage = new Kinetic.Stage({
+			container : 'stage',
+			width : stageWidth,
+			height : stageHeight
+		});
+
+		var leap = new Leap.Controller();
+		leap.connect();
+
+		var layer = new Kinetic.Layer();
+
+		//Make ten circles to use as finger tips
+		for (var t = 0; t < 10; t++) {
+			var tip = new Kinetic.Circle({
+				x : 239,
+				y : 75,
+				radius : 30,
+				fill : 'green',
+				stroke : 'black',
+				strokeWidth : 4,
+				opacity : .5,
+				visible : false
+			});
+			tips[t] = tip;
+			layer.add(tip);
+		}
+
+		// add the layer to the stage
+		stage.add(layer);
+		
+		/**
+			Translates pointables indices on ESP pins;
+		
+		*/
+		function getPin(index) {
+			if (index == 0) {
+				return 1;
+			}
+			
+			if (index == 1) {
+				return 2;
+			}
+			
+			if (index == 2) {
+				return 5;
+			}
+			
+			if (index == 3) {
+				return 6;
+			}
+			if (index == 4) {
+				return 7;
+			}
+			
+		}
+
+		
+		function httpGet(theUrl, pin, voltage)
+		{
+		    var xmlHttp = new XMLHttpRequest();
+		    var url = theUrl + "?p=" + pin + "&v=" + voltage;
+		    xmlHttp.open( "GET", url, false ); // false for synchronous request
+		    xmlHttp.send( null );
+		    return xmlHttp.responseText;
+		}	
+		
+		function httpGetAsync(theUrl, pin, voltage)
+		{
+		    var xmlHttp = new XMLHttpRequest();
+		    xmlHttp.onreadystatechange = function() { 
+		        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+		            console.log(xmlHttp.responseText);
+		    }
+		    xmlHttp.open("GET", theUrl + "?p=" + pin + "&v=" + voltage, true); // true for asynchronous 
+		    xmlHttp.send(null);
+		}
+		
+		
+		var touchDistance = 0;
+		var rearVolt = 0;
+		var voltage = 0;
+		var oneMinusDistance = 0;
+		
+		var maxVoltage = 0;
+		
+		var anim = new Kinetic.Animation(
+				function(frame) {
+					var time = frame.time, timeDiff = frame.timeDiff, frameRate = frame.frameRate;
+
+					// update finger tip display with data from latest frame
+					var tipPointer = 0;
+					var leapFrame = leap.frame();
+					if (leapFrame.valid) {
+						var iBox = leapFrame.interactionBox;
+						for (var p = 0; p < leapFrame.pointables.length; p++) {
+							var pointable = leapFrame.pointables[p];
+							var pos = iBox.normalizePoint(
+									pointable.tipPosition, true);
+							tips[tipPointer].setX(pos[0] * stageWidth);
+							tips[tipPointer].setY(stageHeight - pos[1] * stageHeight);
+							tips[tipPointer].setVisible(true);
+							
+							
+					        touchDistance = leapFrame.pointables[p].touchDistance;
+					        oneMinusDistance = 1 - touchDistance;
+					        
+					        pointables[p].innerText = oneMinusDistance;
+					        
+					        rearVolt = Math.round((oneMinusDistance) * 1024 / 2 );
+					        rearVs[p].innerText = rearVolt;
+					        
+					        voltage = Math.round((rearVolt * 3.3 / 1024)*100) / 100;
+					        volts[p].innerText = voltage;
+					        
+					        
+							var boundary = Math.abs(rearVolt - lastVolts[p]);
+					        
+					        if ( boundary > 40) {
+// 						    if ( Math.abs(rearVolt - lastVoltage) > 50) {
+
+								
+					        
+					        	lastVolts[p] = rearVolt;
+								lastVs[p].innerText = lastVolts[p];
+
+								//lastVoltage = rearVolt;
+								
+								/*
+								if (boundary > max) {
+									
+									if (Math.abs(max - boundary) > 150)
+									
+								
+									max = boundary;					        	
+								}*/
+								
+						        httpGetAsync(arGlovesUrl, getPin(p), rearVolt);
+
+	
+					        	
+					        	
+					        }
+
+							
+					        
+					        
+							if (pointable.touchZone == "hovering") {
+								
+								tips[tipPointer].setOpacity(.375 - pointable.touchDistance * .2);
+								tips[tipPointer].setFill("rgb(0,128,0)");
+								
+							} else if (pointable.touchZone == "touching") {
+
+								tips[tipPointer].setOpacity(.375 - pointable.touchDistance * .5);
+								tips[tipPointer].setFill("rgb(128,0,0)");
+								
+							} else {
+								
+
+								
+								tips[tipPointer].setOpacity(.1);
+								tips[tipPointer].setFill("rgb(0,0,128)");
+								
+							}
+							if (tipPointer < 9)
+								tipPointer++;
+						}
+						while (tipPointer <= 9)
+							tips[tipPointer++].setVisible(false);
+					}
+				}, layer);
+
+		anim.start();
+		/*
+		$.get(
+			    "somepage.php",
+			    {paramOne : 1, paramX : 'abc'},
+			    function(data) {
+			       alert('page content: ' + data);
+			    }
+			);
+		*/
+		
+	</script>
+	
+	
+	
+</body>
+</html>
