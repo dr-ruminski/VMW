@@ -25,5 +25,10 @@ const char* INFO_FOR_D = "Hi Dariusz, I'm working!!!";
 const char* PARAM_PIN = "p";
 const char* PARAM_VOLTAGE = "v";
 
+// constants for basic information
+const char* INFO = "Coin motor ON! D";
+const char* INFO2 = "To many parameters! I only need 'pin' and 'voltage'";
+const char* INFO3 = "Not enough parameters! I only need 'pin' and 'voltage'";
+
 
 #endif
