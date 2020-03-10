@@ -1,11 +1,16 @@
+
 /**
+ * VMW main code responsible for handling asynchronous HTTP requests in order to run sensors mounted
+ * on a user's hand. The device connects to specified access point based on SSID and password parameters.
+ * When it successfully connects to AP, you can find in a console IP address given to VMW. 
+ * The server signs response header following the Cross-Origin Resource Sharing (CROS) policy.
+ *
  * @author Dariusz Rumiński 
- * 
  */ 
 #include <ESP8266mDNS.h>
 #include "MemoryFree.h"
 #include "CORS_CONST.h"
-#include "MexicanWave.h"
+#include "MexicanWave.h" 
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <Hash.h>
@@ -13,10 +18,10 @@
 #include <ESPAsyncWebServer.h>
 
 
-#define D0 16
+#define D0 16 //
 #define D1 5 // I2C Bus SCL (clock)
 #define D2 4 // I2C Bus SDA (data)
-#define D3 0
+#define D3 0 //
 #define D4 2 // Same as "LED_BUILTIN", but inverted logic
 #define D5 14 // SPI Bus SCK (clock)
 #define D6 12 // SPI Bus MISO 
@@ -25,10 +30,10 @@
 #define D9 3 // RX0 (Serial console)
 #define D10 1 // TX0 (Serial console)
 
-
-const char* ssid = "ssid"; 
-const char* password = "yourpasswordToAP";
-
+// --------------------------------------------
+const char* ssid = "ssid"; 					 // 	Here, change your AP parameters! 
+const char* password = "yourpasswordToAP";  // 		Remember to change also client-side apps.
+// ---------------------------------------
 
 // led for esp
 const int led = D4;
@@ -57,19 +62,19 @@ void setupWifi() {
     WiFi.mode(WIFI_STA);
     //WiFi.setOutputPower(1);
     
-    int teltje = 0;
+    int counter = 0;
     pinMode(led, OUTPUT);     // Initialize the BUILTIN_LED pin as an output
     while (WiFi.status()!= WL_CONNECTED) {
       delay(20);
       digitalWrite(led, HIGH);   
       delay(300);
       digitalWrite(led, LOW);   
-      if (teltje==0) {
+      if (counter == 0) {
         WiFi.begin(ssid, password); // only do WiFi.begin if not already connected
       }
-      teltje++;
+      counter++;
       Serial.print(".");
-      if (teltje>20) {
+      if (counter > 20) {
         Serial.println("Connection Failed! Rebooting...");
         delay(500);
         ESP.restart();
@@ -79,15 +84,12 @@ void setupWifi() {
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
     digitalWrite(led, HIGH);   
-
-  }
+}
 
 
 void setup(void){
 
- //oldWiFiStuff(); 
   setupWifi();
-
 
   startServer();
 
@@ -98,9 +100,9 @@ void setup(void){
   pinMode(D6, OUTPUT);
   pinMode(D7, OUTPUT);
 
+  // uncomment it for a new level of UX :)
   //MexicanWave wave(rightHandPins);
   //wave.start();
-  
 }
 
 
@@ -136,12 +138,6 @@ void runCoinMotor(int &pinVar, int &powerVar) {
   
 }
 
-
-
-const char* INFO = "Coin motor ON! D";
-const char* INFO2 = "To many parameters! I only need 'pin' and 'voltage'";
-const char* INFO3 = "Not enough parameters! I only need 'pin' and 'voltage'";
-
 // for tracking memory leakage stuff
 uint32_t memcurr = 0;
 uint32_t memlast = 0;
@@ -164,7 +160,7 @@ void startServer() {
     //memcurr = ESP.getFreeHeap();
     //Serial.printf("FREEHeap: %d; DIFF %d; request No: %d\n", memcurr, memcurr - memlast, counter);
     //memlast = memcurr;
-
+	//counter++;
 
 	// handling parameters
     String pinStr = request->getParam(PARAM_PIN)->value();
@@ -175,11 +171,10 @@ void startServer() {
     int voltage = volStr.toInt();
     //Serial.printf("Pin: %d; Voltage: %d\t", pin, voltage);
     
-
 	// here we start a fun       
     runCoinMotor(pin, voltage);
     request->send(200, TEXT_PLAIN, OK_);
-    counter++;
+
 
 	// setting headers CORS 
 	DefaultHeaders::Instance().addHeader(ACCESS_CONTROL_ALLOW_ORIGIN, ASTERIX);
@@ -189,9 +184,7 @@ void startServer() {
 
 	server.begin();
 	//server.setNoDelay(true);
-	Serial.println("async HTTP server started");
-
-  
+	Serial.println("async HTTP server started");  
 }
 
 void notFound(AsyncWebServerRequest *request) {
