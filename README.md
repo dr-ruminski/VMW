@@ -17,17 +17,17 @@ The VMW device consists of five vibro motors connected to the device's board, ea
 ### Server-side
 The source code of an asynchronous server can be found within the following catalog: [VibroWearableAsyncServer-esp8266](VibroWearableAsyncServer-esp8266). The project has been created with the use of Visual Studio. 
 First of all, change the SSID and password of *VibroWearableAsyncServer.cpp* to the proper access point (AP). With the use of this AP VMW will connect and be accessible by a client app in a wireless manner. 
-`"
+```
 const char* ssid = "ssid"; 
 const char* password = "passwordToAccessPoint";
-`"
+```
 
 Compile the code and upload it to any instance of ESP 8266. You can also use node mcu. In logs, you will find a given IP address that will be used by a client application.
 
 Next, in order to run a vibro motor with e.g., 3.3V mounted on an index finger, an AR or VR application should call HTTP GET method with the following pattern:
-`"
+```
 http://VMW-ip-address/motor?finger=index&voltage=3.3
-`"
+```
 where:
 * *device-ip-address* – is an IP address of a Vibro Motors Wearable device;
 * *finger* – is a parameter that expresses which vibro motor should be run;
